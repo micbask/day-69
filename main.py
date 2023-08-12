@@ -83,7 +83,7 @@ def register():
         new_user = User()
         new_user.name = form.name.data
         new_user.email = form.email.data
-        new_user.hashed_password = generate_password_hash(password=str(form.password.data), method='pbkdf2',
+        new_user.hashed_password = generate_password_hash(password=str(form.password.data), method='pbkdf2:sha256',
                                                           salt_length=8)
         db.session.add(new_user)
         db.session.commit()
