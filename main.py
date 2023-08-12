@@ -1,3 +1,4 @@
+import os
 from datetime import date
 from flask import Flask, abort, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
@@ -12,13 +13,12 @@ from sqlalchemy import ForeignKey
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-app.config['CKEDITOR_PKG_TYPE'] = 'full'
+app.config['SECRET_KEY'] = os.environ.get("FLASK_KEY")
 Bootstrap5(app)
 ckeditor = CKEditor(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URI', 'sqlite:///posts.db')
 db = SQLAlchemy()
 db.init_app(app)
 
