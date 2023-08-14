@@ -46,7 +46,7 @@ class BlogPost(db.Model):
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
     date = db.Column(db.String(250), nullable=False)
-    body = db.Column(db.Text, nullable=False)
+    body = db.Column(db.Text(500), nullable=False)
     img_url = db.Column(db.String(250), nullable=False)
     comments = relationship("Comment", back_populates="post")
 
@@ -56,15 +56,15 @@ class User(UserMixin, db.Model):
     id = mapped_column(db.Integer, primary_key=True)
     posts = relationship("BlogPost", back_populates="author")
     comments = relationship("Comment", back_populates="author")
-    name = db.Column(db.String(), unique=True, nullable=False)
-    email = db.Column(db.String(), unique=True, nullable=False)
-    hashed_password = db.Column(db.String(), unique=True, nullable=False)
+    name = db.Column(db.String(500), unique=True, nullable=False)
+    email = db.Column(db.String(500), unique=True, nullable=False)
+    hashed_password = db.Column(db.String(500), unique=True, nullable=False)
 
 
 class Comment(db.Model):
     __tablename__ = "comments"
     id = mapped_column(db.Integer, primary_key=True)
-    text = db.Column(db.String, nullable=False)
+    text = db.Column(db.String(500), nullable=False)
     author_id = mapped_column(db.ForeignKey("users.id"))
     author = relationship("User", back_populates="comments")
     post_id = mapped_column(db.ForeignKey("blog_posts.id"))
