@@ -56,9 +56,9 @@ class User(UserMixin, db.Model):
     id = mapped_column(db.Integer, primary_key=True)
     posts = relationship("BlogPost", back_populates="author")
     comments = relationship("Comment", back_populates="author")
-    name = db.Column(db.String(30), unique=True, nullable=False)
-    email = db.Column(db.String(30), unique=True, nullable=False)
-    hashed_password = db.Column(db.String(150), unique=True, nullable=False)
+    name = db.Column(db.String(), unique=True, nullable=False)
+    email = db.Column(db.String(), unique=True, nullable=False)
+    hashed_password = db.Column(db.String(), unique=True, nullable=False)
 
 
 class Comment(db.Model):
